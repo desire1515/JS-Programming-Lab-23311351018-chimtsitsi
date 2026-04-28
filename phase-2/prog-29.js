@@ -1,0 +1,62 @@
+console.log("=".repeat(55));
+console.log("PROGRAM 29 - IIFE");
+console.log("STUDENT: Desire Chimtsitsi");
+console.log("ID: 23311351018");
+console.log("EXECUTION DATE: " + new Date().toLocaleString());
+console.log("SESSION TOKEN: " + Math.random().toString(36).substring(2, 15).toUpperCase());
+console.log("=".repeat(55));
+
+// Program 29: IIFE for creating private scope
+// Basic IIFE
+(function() {
+ let privateVar = "I am private";
+ console.log("IIFE executed: " + privateVar);
+})(); // Immediately invoked
+// IIFE with parameters
+(function(name, age) {
+ console.log(`Hello ${name}, you are ${age} years old.`);
+})("Desire", 23);
+// IIFE with arrow function
+(() => {
+ console.log("Arrow IIFE executed");
+})();
+// Module pattern using IIFE
+const calculator = (function() {
+ // Private variables and functions
+ let result = 0;
+ 
+ function validate(n) {
+ return typeof n === "number" && !isNaN(n);
+ }
+ 
+ // Public API
+ return {
+ add: function(n) {
+ if (validate(n)) result += n;
+ return this;
+ },
+ subtract: function(n) {
+ if (validate(n)) result -= n;
+ return this;
+ },
+ multiply: function(n) {
+ if (validate(n)) result *= n;
+ return this;
+ },
+ getResult: function() {
+ return result;
+ },
+ reset: function() {
+ result = 0;
+ return this;
+ }
+ };
+})();
+console.log("\\nCalculator Module:");
+calculator.add(10).subtract(3).multiply(2);
+console.log("Result: " + calculator.getResult()); // 14
+calculator.reset().add(5).multiply(4);
+console.log("Result: " + calculator.getResult()); // 20
+// Result variable is private - cannot be accessed directly
+// console.log(calculator.result); // undefined
+
